@@ -1,0 +1,65 @@
+<!-- andrea robin studio · collectors' list announcement block
+     Paste into a Format embed / custom HTML block, placed directly ABOVE your existing signup form.
+     It inherits your site's fonts and colours.
+
+     To turn on the countdown later: set ARS_RELEASE below to the list release time, e.g.
+       var ARS_RELEASE = "2026-11-14T10:00:00-08:00";   // 10am Vancouver time
+     and change the date line to the real date. Leave it as null to keep the countdown hidden. -->
+
+<div class="ars-drop">
+  <p class="ars-kicker">a first look</p>
+  <h2 class="ars-title">six studies</h2>
+  <p class="ars-when">mid-november · for the list first</p>
+
+  <div class="ars-count" id="ars-count" hidden>
+    <div><span id="ars-d">00</span><small>days</small></div>
+    <div><span id="ars-h">00</span><small>hrs</small></div>
+    <div><span id="ars-m">00</span><small>mins</small></div>
+    <div><span id="ars-s">00</span><small>secs</small></div>
+  </div>
+  <p class="ars-live" id="ars-live" hidden>the studies are open to the list. check your inbox.</p>
+
+  <hr class="ars-rule">
+
+  <p class="ars-next">collection 01 · 150 studies · spring 2027</p>
+  <p class="ars-why">the list sees each collection on saturday.<br>everyone else, monday night.</p>
+</div>
+
+<style>
+  .ars-drop{max-width:34rem;margin:0 auto 2.5rem;padding:0 16px;text-align:center;color:inherit;font-family:inherit}
+  .ars-drop p{margin:0}
+  .ars-kicker{font-size:.8rem;letter-spacing:.18em;opacity:.6;margin-bottom:.6rem!important}
+  .ars-title{font-family:inherit;font-weight:400;font-size:2rem;letter-spacing:.02em;margin:0 0 .5rem;text-transform:lowercase}
+  .ars-when{font-size:.95rem;opacity:.8}
+  .ars-count{display:flex;justify-content:center;gap:1.5rem;margin:1.75rem 0 .5rem}
+  .ars-count[hidden],.ars-live[hidden]{display:none}
+  .ars-count div{display:flex;flex-direction:column;align-items:center;min-width:3rem}
+  .ars-count span{font-size:1.75rem;font-variant-numeric:tabular-nums;line-height:1.1}
+  .ars-count small{font-size:.7rem;letter-spacing:.14em;opacity:.55;margin-top:.25rem}
+  .ars-live{margin-top:1.5rem!important;font-size:.95rem}
+  .ars-rule{width:2.5rem;border:0;border-top:1px solid currentColor;opacity:.3;margin:2rem auto}
+  .ars-next{font-size:.85rem;letter-spacing:.06em;opacity:.75;margin-bottom:.75rem!important}
+  .ars-why{font-size:.95rem;line-height:1.6;font-style:italic;opacity:.85}
+  @media (max-width:420px){.ars-title{font-size:1.6rem}.ars-count{gap:1rem}.ars-count span{font-size:1.4rem}}
+</style>
+
+<script>
+(function(){
+  var ARS_RELEASE = null; // countdown off until you add a date
+  if(!ARS_RELEASE) return;
+  var end = new Date(ARS_RELEASE).getTime();
+  var box = document.getElementById('ars-count'), live = document.getElementById('ars-live');
+  function pad(n){return String(n).padStart(2,'0');}
+  function tick(){
+    var t = end - Date.now();
+    if(t <= 0){ box.hidden = true; live.hidden = false; return; }
+    box.hidden = false;
+    document.getElementById('ars-d').textContent = pad(Math.floor(t/864e5));
+    document.getElementById('ars-h').textContent = pad(Math.floor(t/36e5)%24);
+    document.getElementById('ars-m').textContent = pad(Math.floor(t/6e4)%60);
+    document.getElementById('ars-s').textContent = pad(Math.floor(t/1e3)%60);
+    setTimeout(tick, 1000);
+  }
+  tick();
+})();
+</script>
